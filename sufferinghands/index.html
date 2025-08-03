@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padecimientos</title>
+<style>
+        :root{
+            --bg-body: #EEE;
+            --bg-header: #081299;
+            --bg-default: #EEE;
+            --titles-color: red;
+            --font-color-default:#081299;
+            --font-color-header: var(--bg-default);
+            --notes-color: gray;
+            --font-size: 1rem;
+            --height-header: 50px;
+            --height-footer: 30px;
+            --btn-close-suff-hover: red; 
+        }
+        *{margin:0; padding:0; box-sizing: border-box; -webkit-transition: background-color 0.3s; -moz-transition: background-color 0.3s; transition: background-color 0.3s;}
+        body{background-color: var(--bg-body); color: var(--font-color-default); display: -webkit-flex; display:flex; flex-wrap: wrap; font-family: sans-serif; justify-content: center; width: 100%; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s;}
+        h1,h2,h3,h4,h5{padding: 5px 5px; text-align: center; width: 100%;} h3{color: var(--titles-color); text-align: start;}
+        header{background-color: var(--bg-header); color: var(--font-color-header); border-bottom: 5px solid red; display: -webkit-flex; display:flex; flex-wrap: wrap; height: var(--height-header); justify-content: center; max-width: 1050px; position: fixed; width: 100%; z-index: 100;}
+        .grid-content{ display: grid; justify-content: space-evenly; grid-template-columns: repeat(auto-fill, minmax(225px, 1fr)); gap: 20px; padding: 15px; max-width: 1050px;}
+        .btn-index{list-style: none; cursor: pointer; background-color: var(--bg-header); color: var(--font-color-header); line-height: 2rem; border-radius: 1.5rem; text-align: center; padding: 0 5px;}
+        .btn-index:active{transform: scale(.95);} .btn-index:hover{background-color: var(--btn-close-suff-hover);}
+        .content{background-color: var(--bg-default); display: -webkit-flex; display: flex; flex-wrap: wrap; height: 100%; margin-bottom: var(--height-footer); margin-top: var(--height-header); max-width: 1050px; min-width: 350px; padding-top: 20px; width: 1050px;}
+    /***  DIALOG ***/
+        .suffering-data{ background-color: var(--bg-default); border-radius: 10px; color: var(--font-color-default); position: absolute; z-index: 1000; max-width: 1050px; min-width: 350px; margin: auto;}
+        .close-suff{background-color: var(--bg-header); border-radius: 50%; color: var(--bg-default); cursor: pointer; position: relative; top: 10px; right: calc(-100% + 30px); width: 20px; height: 20px;} .close-suff:hover{ background-color: var(--btn-close-suff-hover)} .close-suff:active{transform: scale(.95);}
+        .close-suff::after{background-color: var(--bg-default); border-radius: 2px; content:''; display: block; height: 4px; margin: auto; position: relative; top: calc(50% - 2px); transform: rotate(45deg); width: 16px;} .close-suff::after:active{transform: scale(.95);}
+        .close-suff::before{background-color: var(--bg-default); border-radius: 2px; content:''; display: block; height: 4px; margin: auto; position: absolute; right: 2px; top: calc(50% - 2px); transform: rotate(315deg); width: 16px;} .close-suff::before:active{transform: scale(.95);}
+    /****** ETIQUETAS ******/
+        .nav-content{display:block;width: 100%;}
+        p{padding: 5px 10px; margin-bottom: 10px; text-align: justify; width: 100%;}
+        img{display: block; max-width: 95%; height: auto; object-fit: cover; border: 1px dotted var(--bg-header); margin: 0 auto 10px; border-radius: 10px;}
+        footer {align-items: center; background-color: var(--bg-header); color: var(--font-color-header); display: -webkit-flex; display:flex; justify-content: center; height: var(--height-footer); position:fixed; top: calc(100vh - var(--height-footer)); width: 100%; max-width: 1050px; z-index:100;} .mark{width: 100%; font-size: 0.7em;}
+    /****** GENERALES ******/
+        .ul-list{margin: 0 10px; width: calc(100% - 10px);} .ul-list:last-child{margin-bottom: 10px;}
+        .center{display: -webkit-flex; display: flex; justify-content: center;}
+        .notes{color: var(--notes-color); font-style: italic;} .lines-small{margin-bottom: 2px; padding: 0 10px;}
+        .separator{border-bottom: 2px dotted var(--font-color-default)}
+        .separator-top{border-top: 2px dotted var(--font-color-default)}
+        .dotted-text::before, .dotted-text::after{content:"\2022 \2022 \2022"; color: var(--font-color-default)}
+</style>
+</head>
+<body>
+    <dialog id="suffering" class="suffering-data"></dialog>
+    <header>
+        <h1>Indice</h1>
+    </header>
+    <div id="content" class="content">
+        <nav class="nav-content">
+            <ul class="grid-content">
+                <li class="btn-index" onclick="showSuff(suffData.acEst.title,suffData.acEst.suff,suffData.acEst.img)">Acidez Estomacal</li>
+                <li class="btn-index">Alergia</li>
+                <li class="btn-index">Ansiedad</li>
+                <li class="btn-index">Artritis</li>
+                <li class="btn-index">Bronquitis</li>
+                <li class="btn-index">Cálculos Biliares</li>
+                <li class="btn-index">Cansancio</li>
+                <li class="btn-index">Ciática</li>
+                <li class="btn-index">Colitis</li>
+                <li class="btn-index">Depresión</li>
+                <li class="btn-index">Dolor de Espalda</li>
+                <li class="btn-index">Dolor Lumbar</li>
+                <li class="btn-index">Eczema</li>
+                <li class="btn-index">Glaucoma</li>
+                <li class="btn-index">Hemmorroides</li>
+                <li class="btn-index">Hipertiroidismo</li>
+                <li class="btn-index">Disfunción Eréctil</li>
+            </ul>
+        </nav>
+    </div>
+    <footer><div id="mark"></div></footer>
+    <script>
+        const suffData = {
+                    acEst: {title: "Acidez Estomacal", suff: "Es una sensación de ardor dolorosa en el pecho o garganta</p><h3>Causas</h3><p>Ocurre cuando lo ácidos estomacales suben al esófago.</p><h3>Síntomas</h3><p>Durante el ambarazo, alguno alimentos, bebídas alcohólicas, algunas medicinas pueden provocar acidez. Es importante tratar la acidez, porque en el transcurso del tiempo, el reflujo puede dañar el esófago.</p><h3>Áreas Reflejas</h3><p>Vesícula biliar, plexo solar, estómago, hipotálamo y páncreas.", img:"https://image.buoyhealth.com/images/0b678gck/~production/116ae51d5875d7c8868d982a836a158faaf3ea19-2000x1400.png?w=600&q=70&auto=format"},
+                    alergia: {title: "Alergia", suff: "", img:""},
+                    ansiedad: {title: "Ansiedad", suff: "", img:""},
+                    artritis: {title: "Artritis", suff: "", img:""},
+                    bronquitis: {title: "Bronquitis", suff: "", img:""}
+                }
+        const   sufferingData = document.getElementById('suffering'),
+                inSpan = document.getElementById('mark'),
+                sonMark = document.createElement('span'),
+                son = 'G'
+        var date = new Date();
+        sonMark.innerHTML = `By ${son}mo &copy ` + date.getFullYear()
+        sonMark.classList.add('mark')
+        inSpan.appendChild(sonMark)
+        //  MODAL PADECIMIENTOS
+        showSuff = (title,suff,img) => { //Mostrar modal con información del padecimiento
+            sufferingData.innerHTML = `<div class="close-suff" onclick="closeSuff()"></div>`
+            sufferingData.innerHTML += `<h2>${title}</h2><p>${suff}</p><img src="${img}" alt="${title}">`
+            suffering.setAttribute('open',true)
+            content.style.display = 'none'
+        }
+        closeSuff = () => {
+            suffering.removeAttribute('open')
+            content.style.display = 'flex'
+        }
+    </script>
+</body>
+</html>
